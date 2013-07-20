@@ -1,18 +1,30 @@
 
 delay = -> set-timeout &1, &0
 
-dont-reload = no
+allow-reload = yes
+
+disable-reload = ->
+  allow-reload := false
+  console.log 'reload is disabled'
+
+body = document .body
 next = document .querySelector '#next'
+image = document .querySelector '#photo img'
 link = next .getAttribute 'href'
 
-if link?
-  tag = "<link ref='prerender' href='#link'>"
+load = -> location .replace link if allow-reload
 
-  document .head .insertAdjacentHTML 'beforeend', tag
+prerender-tag = document .createElement 'link'
+prerender-tag
+  ..set-attribute 'rel', 'prerender'
+  ..set-attribute 'href', link
+document .head .append-child prerender-tag
 
-  delay 1200, ->
-    unless dont-reload
-      window .location .replace link
+console.log 'inserted tag'
 
-  document .body .onmousemove = ->
-    dont-reload := yes
+body
+  ..onmousemove = -> allow-reload := no
+  ..onblur = -> allow-reload := no
+  ..keydown = -> allow-reload := no
+
+delay 800, load

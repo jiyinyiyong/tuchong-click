@@ -14,6 +14,17 @@ I mean, don't forget to click the heart when a picture impresses you, say "I lik
 
 Test on Ubuntu 13.04 , Chrome unstable 29
 
+### Techs
+
+Event bindings will not work in a content script (when devtools is closed, a barrier):
+http://stackoverflow.com/questions/9776054/addeventlistener-in-content-script-not-working
+
+Prerender with `link` tag:
+https://developers.google.com/chrome/whitepapers/prerender
+
+Watch here to see if prerender works:
+chrome://net-internals/#prerender
+
 #### Thanks
 
 For the icon from iconfinder:
